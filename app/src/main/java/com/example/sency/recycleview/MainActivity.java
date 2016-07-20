@@ -29,6 +29,8 @@ public class MainActivity extends Activity {
         recyclerView.setAdapter(mAdapter);
         //为了将它显示出来使用LinearLayoutManager
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        //添加分割线
+        recyclerView.addItemDecoration(new RecycleViewDivider(this,RecycleViewDivider.VERTICAL));
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 
