@@ -46,6 +46,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public int getItemCount() {
         return mDatas.size();
     }
+
+    //增加一个item
+    public void addData(int pos){
+        mDatas.add(pos,"蛋酱");
+        notifyItemInserted(pos);
+    }
+
+    //删除一个item
+    public void delete(int pos){
+        mDatas.remove(pos);
+        notifyItemRemoved(pos);
+    }
 }
 
 class MyViewHolder extends RecyclerView.ViewHolder{

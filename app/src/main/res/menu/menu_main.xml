@@ -1,5 +1,43 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" android:showAsAction="never" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/action_add"
+        android:orderInCategory="100"
+        android:title="Add"
+        android:icon="@drawable/add"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_delete"
+        android:orderInCategory="100"
+        android:title="Delete"
+        android:icon="@drawable/delete"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_listview"
+        android:orderInCategory="100"
+        android:title="ListView"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_gridview"
+        android:orderInCategory="100"
+        android:title="GridView"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_hor_gridview"
+        android:orderInCategory="100"
+        android:title="Hor_GridView"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_staggered"
+        android:orderInCategory="100"
+        android:title="StaggeredView"
+        app:showAsAction="never" />
 </menu>

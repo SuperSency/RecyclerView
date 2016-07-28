@@ -2,8 +2,11 @@ package com.example.sency.recycleview;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -24,25 +27,26 @@ public class MainActivity extends Activity {
         initDatas();
         initView();
         //创建适配器对象
-        mAdapter = new MyAdapter(this,mDatas);
+        mAdapter = new MyAdapter(this, mDatas);
         //传入数据
         recyclerView.setAdapter(mAdapter);
         //为了将它显示出来使用LinearLayoutManager
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         //添加分割线
-        recyclerView.addItemDecoration(new RecycleViewDivider(this,RecycleViewDivider.VERTICAL));
+        //  recyclerView.addItemDecoration(new RecycleViewDivider(this, RecycleViewDivider.VERTICAL));
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void initDatas() {
         mDatas = new ArrayList<String>();
-        for(int x = 'A';x<'z';x++){
-            mDatas.add((char)x+"");
+        for (int x = 'A'; x < 'z'; x++) {
+            mDatas.add((char) x + "");
         }
     }
 
     private void initView() {
-        recyclerView = (RecyclerView)findViewById(R.id.recycler);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
     }
 
     @Override
@@ -60,8 +64,31 @@ public class MainActivity extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+        switch (id) {
+            case R.id.action_add:
+                mAdapter.addData(1);
+                break;
+            case R.id.action_delete:
+                mAdapter.delete(1);
+                break;
+            case R.id.action_gridview:
+                //第二个参数为列数
+                recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+                break;
+            case R.id.action_listview:
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                break;
+            case R.id.action_hor_gridview:
+                recyclerView.setLayoutManager(new StaggeredGridLayoutManager(7,
+                        StaggeredGridLayoutManager.HORIZONTAL));
+                break;
+            case R.id.action_staggered:
+                break;
+            default:
+                break;
         }
 
         return super.onOptionsItemSelected(item);
