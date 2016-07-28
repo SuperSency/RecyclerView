@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,11 +19,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private Context mContext;
     private List<String> mDatas;
 
+
+    private List<Integer> mHeights;
+
     //构造方法进行初始化
     public MyAdapter(Context context,List<String> data){
         this.mContext = context;
         this.mDatas = data;
         layoutInflater = LayoutInflater.from(context);
+
+        mHeights = new ArrayList<>();
+        for (int i = 0;i<mDatas.size();i++){
+            mHeights.add((int) (100+Math.random()*300));
+        }
     }
 
     //创建一个ViewHolder
@@ -37,6 +46,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     //绑定ViewHolder
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        //为每个item设置随机高度
+        ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
+        lp.height = mHeights.get(position);
+        holder.itemView.setLayoutParams(lp);
         //给每个item赋值
         holder.text.setText(mDatas.get(position));
 
