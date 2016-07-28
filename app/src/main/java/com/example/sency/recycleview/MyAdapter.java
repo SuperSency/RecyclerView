@@ -18,6 +18,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private Context mContext;
     private List<String> mDatas;
 
+    public interface OnItemClickListener {
+        void onItemClick(View v,int pos);
+        void onItemLongClick(View v,int pos);
+    }
+
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.onItemClickListener = listener;
+    }
+
     //构造方法进行初始化
     public MyAdapter(Context context,List<String> data){
         this.mContext = context;
@@ -36,10 +47,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     //绑定ViewHolder
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         //给每个item赋值
         holder.text.setText(mDatas.get(position));
+        if (onItemClickListener!=null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                   int layoutPos =  holder.getLayoutPosition();
+                   onItemClickListener.onItemClick(holder.itemView,layoutPos);
+                }
+            });
 
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    int layoutPos =  holder.getLayoutPosition();
+                    onItemClickListener.onItemLongClick(holder.itemView,layoutPos);
+                    return false;
+                }
+            });
+        }
     }
 
     @Override
